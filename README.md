@@ -11,7 +11,7 @@
 ## 残タスク
 - instruction_dataを渡す
 - verify keyのendianの変更（確認）
-- prrof_aなどのcompressed or uncomporessedのチェック
+- prrof_aなどの受け渡しにおいて、uncompressedを渡せるようにサイズ変更
 - テストケース追加（happy path以外）
 
 ## 完成形（予定）
