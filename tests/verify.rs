@@ -55,48 +55,39 @@ fn print_vk_as_bytes(vk: &VerifyingKey<Bn254>) {
     let mut alpha_g1_bytes = Vec::new();
     // vk.serialize_compressed(&mut bytes).unwrap();
 
-    vk.alpha_g1.serialize_compressed(&mut alpha_g1_bytes).unwrap();
+    vk.alpha_g1.serialize_uncompressed(&mut alpha_g1_bytes).unwrap();
     // 32 
     println!("length of bytes: {:?}", alpha_g1_bytes.len());
     println!("alpha_g1: {:?}", &alpha_g1_bytes);
 
     let mut beta_g2_bytes = Vec::new();
-    vk.beta_g2.serialize_compressed(&mut beta_g2_bytes).unwrap();
+    vk.beta_g2.serialize_uncompressed(&mut beta_g2_bytes).unwrap();
     // 64
     println!("length of bytes: {:?}", beta_g2_bytes.len());
     println!("beta_g2: {:?}", &beta_g2_bytes);
 
     let mut gamma_g2_bytes = Vec::new();
-    vk.gamma_g2.serialize_compressed(&mut gamma_g2_bytes).unwrap();
+    vk.gamma_g2.serialize_uncompressed(&mut gamma_g2_bytes).unwrap();
     // 64
     println!("length of bytes: {:?}", gamma_g2_bytes.len());
     println!("gamma_g2_bytes: {:?}", &gamma_g2_bytes);
 
     let mut delta_g2_bytes = Vec::new();
-    vk.delta_g2.serialize_compressed(&mut delta_g2_bytes).unwrap();
+    vk.delta_g2.serialize_uncompressed(&mut delta_g2_bytes).unwrap();
     // 64
     println!("length of bytes: {:?}", delta_g2_bytes.len());
     println!("delta_g2: {:?}", &delta_g2_bytes);
 
     for (i, ic) in vk.gamma_abc_g1.iter().enumerate() {
         let mut ic_bytes = Vec::new();
-        ic.serialize_compressed(&mut ic_bytes).unwrap();
+        ic.serialize_uncompressed(&mut ic_bytes).unwrap();
         // 32
         println!("length of bytes: {:?}", ic_bytes.len());
         println!("ic: {:?}", &ic_bytes);
     }
     println!("nr_pubinputs: {}", vk.gamma_abc_g1.len() - 1);
 
-    // println!("vk_alpha_g1: {:?}", &bytes[0..64]);
-    // println!("vk_beta_g2: {:?}", &bytes[64..192]);
-    // println!("vk_gamma_g2: {:?}", &bytes[192..320]);
-    // println!("vk_delta_g2: {:?}", &bytes[320..448]);
 
-    // println!("vk_ic: &[");
-    // for (i, chunk) in bytes[192..].chunks(64).enumerate() {
-    //     println!("{:?}, // IC[{}]", chunk, i);
-    // }
-    // println!("],");
 }
 
 #[cfg(test)]
@@ -110,7 +101,7 @@ mod test {
     use ark_std::rand::thread_rng;
     use ark_ff::PrimeField;
 
-    // serialize_compressedを使うために必要
+    // serializeを使うために必要
     use ark_serialize::CanonicalSerialize;
 
 

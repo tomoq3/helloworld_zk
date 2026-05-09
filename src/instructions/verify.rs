@@ -1,6 +1,8 @@
 use pinocchio::{AccountView, Address, ProgramResult, address::address, entrypoint, error::ProgramError, nostd_panic_handler};
 use pinocchio_groth16::groth16::Groth16Verifier;
 
+use crate::state::key::VERIFYING_KEY;
+
 pub struct VerifyAccounts<'a> {
     pub owner: &'a AccountView,
 }
@@ -62,22 +64,23 @@ impl<'a> Verify<'a> {
 
 
         
-        // let proof_a = &self.instruction_data.proof[0..64].try_into().unwrap();
-        // let proof_b = &self.instruction_data.proof[64..192].try_into().unwrap();
-        // let proof_c = &self.instruction_data.proof[192..256].try_into().unwrap();
+        let proof_a = &self.instruction_data.proof[0..64].try_into().unwrap();
+        let proof_b = &self.instruction_data.proof[64..192].try_into().unwrap();
+        let proof_c = &self.instruction_data.proof[192..256].try_into().unwrap();
 
-        // // 配列の一要素にする。
-        // let input_data = self.instruction_data.public_inputs;
-        // let formatted_inputs = &[input_data];
+        // 配列の一要素にする。
+        let input_data = self.instruction_data.public_inputs;
+        let formatted_inputs = &[input_data];
 
-        // let mut verifier = Groth16Verifier::new(
-        //     proof_a, 
-        //     proof_b, 
-        //     proof_c, 
-        //     formatted_inputs, 
-        //     verifyingkey
-        // ).unwrap();
+        let mut verifier = Groth16Verifier::new(
+            proof_a, 
+            proof_b, 
+            proof_c, 
+            formatted_inputs, 
+            &VERIFYING_KEY,
+        ).unwrap();
 
+        verifier.verify().unwrap();
         Ok(())
     }
 }
