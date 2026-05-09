@@ -12,6 +12,7 @@
 - instruction_dataを渡す
 - verify keyのendianの変更（確認）
 - prrof_aなどのcompressed or uncomporessedのチェック
+- テストケース追加（happy path以外）
 
 ## 完成形（予定）
 - 現在の回路がonchainでverifyされること
