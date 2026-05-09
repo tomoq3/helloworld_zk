@@ -1,0 +1,49 @@
+[package]
+name = "pinocchio_with_arkworks"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+pinocchio = "0.10.1"
+pinocchio-system = "0.6.1"
+pinocchio-groth16 = "0.3.0"
+# pinocchio-groth16 = "0.2.0"
+
+
+# arkworks
+# ark-bls12-381 = "0.5.0"
+ark-ec = "0.5.0"
+ark-ff = "0.5.0"
+ark-groth16 = "0.5.0"
+ark-r1cs-std = "0.5.0"
+ark-relations = "0.5.1"
+ark-snark = "0.5.1"
+ark-std = "0.5.0"
+ark-bn254 = "0.5"
+# ark-crypto-primitives = {version = "0.4.0", features = ["crh", "merkle_tree"]}
+ark-serialize = "0.5.0"
+
+# toml = "=0.8.19"
+indexmap = "=2.7.1"
+
+[lib]
+crate-type = ["lib", "cdylib"]
+solana-address = {version = "2.0.0", features = ["curve25519"]}
+
+
+[dev-dependencies]
+# mollusk-svm = "0.12.0"
+# mollusk-svm-programs-memo = "0.12.0"
+# mollusk-svm-programs-token = "0.12.0"
+# solana-address = {version = "2.0.0", features = ["curve25519"]}
+mollusk-svm = "0.10.1"
+mollusk-svm-programs-memo = "0.10.1"
+mollusk-svm-programs-token = "0.10.1"
+solana-account = "3.4.0"
+solana-feature-set = "2.2.5"
+solana-precompiles = "2.2.2"
+solana-program = "3.0.0"
+solana-pubkey = "3.0.0"
+solana-sdk = "3.0.0"
+spl-token-interface = "2.0.0"
+spl-associated-token-account = "8.0.0"
