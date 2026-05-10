@@ -113,6 +113,7 @@ mod test {
         let x = Fr::from(5u32);
         let y = Fr::from(40u32);
 
+
         let circuit = PolyCircuit {
             x: Some(x),
             y: Some(y)
@@ -186,6 +187,21 @@ mod test {
         // ここから下はon chainでの確認になる。
         // let valid = Groth16::<Bn254>::verify(&vk, &public_inputs, &proof).expect("Verification failed");
 
+    }
+
+    #[test]
+    fn endian_check() {
+        // endianの確認
+        let endian_check = Fr::from(1u32);
+        let mut endian_check_bytes = Vec::new();
+        endian_check.serialize_compressed(&mut endian_check_bytes).unwrap();
+        // beだった。
+        println!("le or be: {:?}", endian_check_bytes);
+        assert_eq!(endian_check_bytes[0], 1);
+        // これでleになる。
+        let le_endian_check = change_endianness(&endian_check_bytes);
+        println!("le or be: {:?}", le_endian_check);
+        assert_eq!(le_endian_check[le_endian_check.len() - 1], 1);
     }
 
     use solana_account::Account;
