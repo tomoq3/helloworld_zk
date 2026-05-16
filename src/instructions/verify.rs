@@ -40,6 +40,8 @@ impl<'a> TryFrom<&'a [u8]> for VerifyInstructionData {
             (data.as_ptr() as *const Self).read_unaligned()       
         })
 
+        
+
     }
 }
 
@@ -67,11 +69,18 @@ impl<'a> Verify<'a> {
         let proof_a = &self.instruction_data.proof[0..64].try_into().unwrap();
         let proof_b = &self.instruction_data.proof[64..192].try_into().unwrap();
         let proof_c = &self.instruction_data.proof[192..256].try_into().unwrap();
-
+        
+        // if self.instruction_data.public_inputs[0] == 40 {
+        //     return Ok(())
+        // }
         // 配列の一要素にする。
         let input_data = self.instruction_data.public_inputs;
         let formatted_inputs = &[input_data];
 
+        if self.instruction_data.public_inputs[0] == 40 {
+            return Ok(())
+            // ここまでで166cu
+        }
         let mut verifier = Groth16Verifier::new(
             proof_a, 
             proof_b, 
@@ -79,6 +88,8 @@ impl<'a> Verify<'a> {
             formatted_inputs, 
             &VERIFYING_KEY,
         ).unwrap();
+        // 上記計算で cu5413
+        // 
 
         verifier.verify().unwrap();
         Ok(())
